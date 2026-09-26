@@ -1,0 +1,8 @@
+.direnv/
+.agents/skills/
+.mooncakes/
+_build/
+
+.env
+.env.*
+!.env.example
