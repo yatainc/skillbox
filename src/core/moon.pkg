@@ -2,7 +2,6 @@
 import {
   "moonbit-community/yaml",
   "moonbitlang/core/json",
-  "moonbitlang/core/string",
 }
 
 import {

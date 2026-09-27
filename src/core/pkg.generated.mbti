@@ -26,8 +26,6 @@ pub async fn recommend(async (ClassifierRequest) -> ClassifierResponse, Array[Sk
 
 pub fn recommendation_inputs(Array[Skill], String) -> Array[String]
 
-pub fn retry_delay_ms(Int, String?) -> Int?
-
 pub fn search(Array[Skill], String) -> Array[Skill]
 
 // Errors

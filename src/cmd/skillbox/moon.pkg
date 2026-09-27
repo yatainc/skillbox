@@ -1,6 +1,7 @@
 import {
   "yatainc/skillbox/core",
   "moonbitlang/core/env",
+  "moonbitlang/core/string",
   "moonbitlang/async",
   "moonbitlang/async/fs",
   "moonbitlang/async/http",

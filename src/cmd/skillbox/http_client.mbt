@@ -1,5 +1,5 @@
 ///|
-/// The delay is validated by core; transport errors stay distinct.
+/// Only short, retryable HTTP responses carry a delay; transport errors stay distinct.
 suberror ClassifierHttpError {
   HttpStatus(Int, Int?)
 }
@@ -33,10 +33,21 @@ async fn post_classifier(
       headers~,
     )
     if response.code != 200 {
-      let delay = @core.retry_delay_ms(
-        response.code,
-        response.headers.get(CaseInsensitiveString("retry-after")),
-      )
+      let delay = match
+        response.headers.get(CaseInsensitiveString("retry-after")) {
+        Some(value) if response.code == 429 ||
+          (response.code >= 500 && response.code <= 599) => {
+          let seconds = @string.parse_int(value.trim(), base=10) catch {
+            _ => -1
+          }
+          if seconds >= 0 && seconds <= 1 {
+            Some(seconds * 1000)
+          } else {
+            None
+          }
+        }
+        _ => None
+      }
       pending_delay = delay
       raise ClassifierHttpError::HttpStatus(response.code, delay)
     }
