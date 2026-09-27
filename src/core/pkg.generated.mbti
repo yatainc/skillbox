@@ -1,0 +1,81 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "yatainc/skillbox/core"
+
+// Values
+pub fn classifier_request(Array[Skill], String) -> Result[ClassifierRequest, String]
+
+pub fn classifier_response(Array[Skill], Int, String) -> Result[Array[Recommendation], String]
+
+pub fn format_recommendations(Array[Recommendation], Bool) -> String
+
+pub fn format_skill_path(Skill, Bool) -> String
+
+pub fn format_skills(Array[Skill], Bool) -> String
+
+pub fn get_skill(Array[Skill], String) -> Skill?
+
+pub async fn load_skills(FsHost, Array[String]) -> CatalogLoad
+
+pub fn merge_skills(Array[Array[Skill]]) -> Result[Array[Skill], String]
+
+pub fn parse_skill(String, String) -> Skill?
+
+pub fn parse_skill_checked(String, String) -> Result[Skill, String]
+
+pub async fn recommend(async (ClassifierRequest) -> ClassifierResponse, Array[Skill], String) -> Result[Array[Recommendation], String]
+
+pub fn recommendation_inputs(Array[Skill], String) -> Array[String]
+
+pub fn retry_delay_ms(Int, String?) -> Int?
+
+pub fn search(Array[Skill], String) -> Array[Skill]
+
+// Errors
+
+// Types and methods
+pub(all) struct CatalogLoad {
+  skills : Result[Array[Skill], String]
+  diagnostics : Array[String]
+}
+
+pub(all) struct ClassifierRequest {
+  path : String
+  content_type : String
+  body : String
+}
+
+pub(all) struct ClassifierResponse {
+  status : Int
+  body : String
+}
+
+pub(all) enum EntryKind {
+  Directory
+  Regular
+  Other
+}
+
+pub(all) struct FsHost {
+  exists : async (String) -> Bool
+  read_dir : async (String) -> Array[String]
+  kind : async (String) -> EntryKind
+  realpath : async (String) -> String
+  read_file : async (String) -> String
+  join : (String, String) -> String
+}
+
+pub(all) struct Recommendation {
+  skill : Skill
+  confidence : Double?
+  relevance : Double?
+}
+
+pub(all) struct Skill {
+  name : String
+  description : String
+  path : String
+}
+
+// Type aliases
+
+// Traits

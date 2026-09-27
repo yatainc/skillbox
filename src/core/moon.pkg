@@ -1,0 +1,10 @@
+// Pure metadata and query logic; no filesystem or HTTP imports.
+import {
+  "moonbit-community/yaml",
+  "moonbitlang/core/json",
+  "moonbitlang/core/string",
+}
+
+import {
+  "moonbitlang/async",
+} for "test"
